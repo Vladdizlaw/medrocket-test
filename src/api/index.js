@@ -20,11 +20,14 @@ export default {
     }
   },
 
-  getPhotos: function (id) {
+  getPhotos: async function (id) {
     try {
-      console.log(id)
-    } catch (err) {
-      return err
-    }
+        const { data } = await axios.get(
+          `https://json.medrocket.ru/photos?albumId=${id}`
+        )
+        return data
+      } catch (err) {
+        return err
+      }
   },
 }

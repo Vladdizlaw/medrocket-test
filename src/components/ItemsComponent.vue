@@ -1,16 +1,19 @@
 <template>
     <div class="item_wrap">
-        {{ props}} 
-        
+       <input type="checkbox" v-model="state.isOpened"/>  
+        {{ props}}
     </div>
 </template>
 <script setup>
-import { defineProps } from "vue"
+import { defineProps, reactive } from "vue"
 const props = defineProps({
     title:String,
     id:Number,
     isOpened:Boolean,
    
+})
+const state =reactive({
+    isOpened: props.isOpened
 })
 
 </script>
