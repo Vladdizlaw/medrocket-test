@@ -1,15 +1,14 @@
 <template>
-  <div class="cat_wrap" v-if="state.users"  >
+  <div class="cat_wrap" v-if="state.users">
     <div v-for="item in state.users" :key="item.id">
-    <ItemsComponent  :id="item.id"
-      :title="item.name" :isOpened="state.openedUsers.includes(item.id)"  @click.native="onClickItem(item.id)"/>
+      <ItemsComponent :id="item.id" :title="item.name" :isOpened="state.openedUsers.includes(item.id)"
+        @click.native="onClickItem(item.id, 'openedUsers', getAlbums)" />
 
-      <div v-if="state.albums&&state.openedUsers.includes(item.id)">
+      <div v-if="state.albums && state.openedUsers.includes(item.id)">
         <div v-for="item in state.albums" :key="item.id">
-          <ItemsComponent  :id="item.id"
-      :title="item.title" :isOpened="state.openedAlbums.includes(item.id)"  />
+          <ItemsComponent :id="item.id" :title="item.title" :isOpened="state.openedAlbums.includes(item.id)" />
         </div>
-       
+
       </div>
     </div>
   </div>
@@ -23,20 +22,24 @@ onBeforeMount(async () => {
     state.users = users
   })
 })
-const onClickItem = async (id) => {
-  const itemIndex = state.openedUsers.findIndex((el)=>el==id)
-  if (itemIndex == (-1)) {
-    state.openedUsers.push(id)
-    await api.getAlbums(id).then((albums) => {
-    state.albums = albums
+const getAlbums = async (id) => {
+  await api.getAlbums(id).then((data) => {
+    state.albums = data
   })
+}
+const onClickItem = async (id, openedArray,  func) => {
+  console.log(state[openedArray])
+  const itemIndex = state?.[openedArray].findIndex((el) => el == id)
+  if (itemIndex == (-1)) {
+    state?.[openedArray].push(id)
+    func(id)
   } else {
-    state.openedUsers.splice(itemIndex, 1)
+    state[openedArray].splice(itemIndex, 1)
   }
 }
 const state = reactive({
   users: [],
-  albums:[],
+  albums: [],
 
   openedUsers: [],
   openedAlbums: [],
@@ -51,7 +54,7 @@ const state = reactive({
   justify-content: flex-start;
   align-items: center;
   gap: 1rem;
-  min-width:10rem;
-  min-height:10rem;
+  min-width: 10rem;
+  min-height: 10rem;
 }
 </style>
