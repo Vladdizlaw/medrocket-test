@@ -2,12 +2,12 @@
 import OpenItemButton from './OpenItemButton.vue';
 import { defineProps, reactive } from "vue"
 const props = defineProps({
-    title: String,
-    id: Number,
-    isOpened: Boolean,
-
+    title:String,
+    id:Number,
+    isOpened:Boolean,
+   
 })
-const state = reactive({
+const state =reactive({
     isOpened: props.isOpened
 })
 </script>
@@ -19,15 +19,14 @@ const state = reactive({
     </div>
 </template>
 <style scoped>
-.user_wrap {
-    display: flex;
-    justify-content: center;
+.user_wrap{
+   
     font-family: 'Roboto';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 1.5rem;
-    line-height: 130%;
-    min-height: 2rem;
-    min-width: 2rem;
+font-style: normal;
+font-weight: 500;
+font-size: 22px;
+line-height: 130%;
+    min-height:2rem;
+    min-width:2rem;
 }
 </style>
