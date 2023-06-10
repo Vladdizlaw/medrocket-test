@@ -5,18 +5,25 @@
       <router-link class="nav_btn" to="/favorites">Избранное</router-link>
     </nav>
     <div class="main-block">
-      <router-view @set_favorites="setFavorites" />
+      <router-view :favorites="state.favorites" @set_favorites="setFavorites" />
     </div>
 
   </div>
 </template>
 <script setup>
-import { provide, reactive } from 'vue'
-const state = reactive({favorites:[]})
-provide('favorites', /* value */ state.favorites)
+import { reactive } from 'vue'
+const state = reactive({favorites:[],favoritesId:[]})
+
 const setFavorites = (photo) => {
-  console.log(photo)
-  state.favorites.includes(photo) ? state.favorites = state.favorites.filter((p) => { console.log({p}); return p.id !== photo.id }) : state.favorites.push(photo)
+  const favoriteIndex = state.favorites.findIndex((fav) =>fav.id == photo.id)
+  if (favoriteIndex==-1) {
+    state.favorites.push(photo)
+
+  }else{
+    state.favorites.splice(favoriteIndex,1)
+   
+  }
+  console.log(state.favorites)
 }
 </script>
 
