@@ -1,5 +1,8 @@
 <template>
   <div id="app">
+    <div class="app-container">
+
+   
     <nav>
       <router-link class="nav_btn" to="/catalogue">Каталог</router-link>
       <router-link class="nav_btn" to="/favorites">Избранное</router-link>
@@ -7,7 +10,7 @@
     <div class="main-block">
       <router-view :favorites="state.favorites" @set_favorites="setFavorites" />
     </div>
-
+ </div>
   </div>
 </template>
 <script setup>
@@ -23,14 +26,14 @@ const setFavorites = (photo) => {
     state.favorites.splice(favoriteIndex,1)
    
   }
-  console.log(state.favorites)
+
 }
 </script>
 
 
 <style>
 #app {
-  font-family: Roboto, Helvetica, Arial, sans-serif;
+  font-family: Roboto, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -46,7 +49,13 @@ const setFavorites = (photo) => {
   background: #F4F4F4;
 
 }
-
+.app-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width:60%;
+}
 nav {
   display: flex;
   align-items: center;

@@ -5,7 +5,8 @@ import api from "@/api"
 
 import ItemsComponent from "@/components/ItemsComponent.vue"
 import PhotoComponent from "@/components/PhotoComponent.vue"
-const props = defineProps({favorites:Array})
+import StarComponent from "@/components/StarComponent.vue"
+const props = defineProps({ favorites: Array })
 onBeforeMount(async () => {
   await api.getUsers().then((users) => {
     state.users = users
@@ -33,7 +34,8 @@ const onClickUser = async (id, index) => {
     state.openedUsers.splice(itemIndex, 1)
   }
 }
-const onClickPhoto = async (photo) => {
+const setFavorite = async (photo) => {
+  console.log(props.favorites)
   emits("set_favorites", photo)
 }
 const onClickAlbum = async (id, index) => {
@@ -69,8 +71,9 @@ const state = reactive({
               @click.native.stop="onClickAlbum(album.id, index)" />
             <div class="photos nested" v-if="album.photos && state.openedAlbums.includes(album.id)">
               <div class="" v-for="photo in album.photos" :key="photo.id">
-                <PhotoComponent :photo="photo"  
-                  @click.native="onClickPhoto(photo)" />
+                <PhotoComponent :photo="photo" >
+                  <StarComponent :isFavorited="props.favorites.findIndex(p=>p.id==photo.id) " @click.native="setFavorite(photo)" />
+                </PhotoComponent>
               </div>
             </div>
           </div>
@@ -105,33 +108,34 @@ const state = reactive({
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap:0.5rem;
+  gap: 0.5rem;
 }
 
 .user {
-  
- 
+
+
   font-weight: 500;
-  font-size: 1.5rem;
+  font-size: 2rem;
 
 }
 
 .album {
- 
- 
+
+
   font-weight: 400;
-  font-size: 1.3rem;
+  font-size: 1.7rem;
 
 }
-.photos{
+
+.photos {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: start;
-  gap:2rem;
-  max-width:50rem;
+  gap: 2rem;
+  max-width: 550px;
 }
 
 .nested {
-  padding: 1rem 0 0 5rem;
+  padding: 1rem 0 0 3.5rem;
 }</style>
