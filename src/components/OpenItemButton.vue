@@ -21,6 +21,8 @@ const props = defineProps({
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-shrink: 0;
+    flex-basis: 1;
 }
 
 .btn_symbol {
@@ -30,6 +32,7 @@ const props = defineProps({
     width: 80%;
     height: 80%;
     position: relative;
+   
 }
 
 .lineH {
