@@ -7,7 +7,6 @@ const props = defineProps({ photo: Object })
     <div class="photo-container">
         <img :src="props.photo.thumbnailUrl" class="thumbnail" alt="photo" />
         <div class="tooltip">{{ props.photo.title }}</div>
-        <!-- {{ props.photo}} -->
         <div class="slot-container">
             <slot></slot>
         </div>
@@ -17,9 +16,8 @@ const props = defineProps({ photo: Object })
 .photo-container {
     width: 150px;
     height: 150px;
-    border: 1px solid black;
     position: relative;
-    cursor:pointer;
+    cursor: pointer;
 }
 
 .thumbnail {
@@ -32,22 +30,22 @@ const props = defineProps({ photo: Object })
     background: rgba(0, 0, 0, 0.69);
     border-radius: 4px;
     color: white;
-    display:none;
-    position :absolute;
-    bottom:-10%;
-    left:36%;
-    right:-20%;
-    font-size:0.9rem;  
-    padding: 0.5rem; 
-    
+    display: none;
+    position: absolute;
+    bottom: -10%;
+    left: 36%;
+    right: -20%;
+    font-size: 0.9rem;
+    padding: 0.5rem;
+
 }
-.thumbnail:hover + .tooltip {
+
+.thumbnail:hover+.tooltip {
     display: flex;
-    min-width:5rem;
+    min-width: 5rem;
 }
 
 .slot-container {
-
     position: absolute;
     top: 0.5rem;
     right: 0.5rem;
