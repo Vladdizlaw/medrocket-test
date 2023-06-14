@@ -3,11 +3,14 @@
     <ModalComponent v-if="state.viewPhoto.id" :url="state.viewPhoto.url" @close-modal="closeModal" />
     <div class="app-container">
       <nav>
+
         <router-link class="nav_btn" to="/catalogue">Каталог</router-link>
         <router-link class="nav_btn" to="/favorites">Избранное</router-link>
       </nav>
       <div class="main-block">
+        <KeepAlive>
         <router-view :favorites="state.favorites" @open-modal="openModal" @set_favorites="setFavorites" />
+      </KeepAlive>
       </div>
     </div>
   </div>
